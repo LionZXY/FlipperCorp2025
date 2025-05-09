@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="week_monday">Пн</string>
+    <string name="week_tuesday">Вт</string>
+    <string name="week_wednesday">Ср</string>
+    <string name="week_thursday">Чт</string>
+    <string name="week_friday">Пт</string>
+    <string name="week_saturday">Сб</string>
+    <string name="week_sunday">Вс</string>
+</resources>

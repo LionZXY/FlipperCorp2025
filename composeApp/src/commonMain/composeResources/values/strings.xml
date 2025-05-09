@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="week_monday">Mon</string>
+    <string name="week_tuesday">Tue</string>
+    <string name="week_wednesday">Wed</string>
+    <string name="week_thursday">Thu</string>
+    <string name="week_friday">Fri</string>
+    <string name="week_saturday">Sat</string>
+    <string name="week_sunday">Sun</string>
+</resources>
