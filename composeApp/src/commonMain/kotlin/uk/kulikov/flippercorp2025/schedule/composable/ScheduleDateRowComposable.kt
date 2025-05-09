@@ -1,16 +1,18 @@
 package uk.kulikov.flippercorp2025.schedule.composable
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.hyperether.resources.stringResource
 import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.week_friday
@@ -20,13 +22,11 @@ import flipperculturalflip2025.composeapp.generated.resources.week_sunday
 import flipperculturalflip2025.composeapp.generated.resources.week_thursday
 import flipperculturalflip2025.composeapp.generated.resources.week_tuesday
 import flipperculturalflip2025.composeapp.generated.resources.week_wednesday
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DayOfWeekNames
-import kotlinx.datetime.todayIn
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import uk.kulikov.flippercorp2025.FlipperCorpTheme
 
 @Composable
 fun ScheduleDateRowComposable(
@@ -35,29 +35,38 @@ fun ScheduleDateRowComposable(
     selected: LocalDate,
     onSelect: (LocalDate) -> Unit
 ) {
-
-    LazyRow(modifier) {
-        items(dates) { date ->
-            ScheduleDateRowTab(
-                date = date,
-                selected = date == selected,
-                onSelect = { onSelect(date) }
-            )
+    ScrollableTabRow(
+        modifier = modifier,
+        backgroundColor = MaterialTheme.colors.background,
+        contentColor = MaterialTheme.colors.primary,
+        selectedTabIndex = dates.indexOf(selected),
+        tabs = {
+            dates.forEach { date ->
+                ScheduleDateRowTab(
+                    modifier = Modifier,
+                    date = date,
+                    selected = date == selected,
+                    onSelect = { onSelect(date) }
+                )
+            }
         }
-    }
+    )
 }
 
 @Composable
 private fun ScheduleDateRowTab(
+    modifier: Modifier = Modifier,
     date: LocalDate,
     selected: Boolean,
     onSelect: () -> Unit
 ) {
     Tab(
+        modifier = modifier,
         selected = selected,
         onClick = onSelect
     ) {
         Text(
+            modifier = Modifier.padding(horizontal = 12.dp),
             text = date.dayOfMonth.toString(),
         )
         val dayOfWeekNames = getDaysOfWeekNames()
@@ -85,7 +94,7 @@ private fun getDaysOfWeekNames(): DayOfWeekNames {
 @Preview
 @Composable
 private fun ScheduleDateRowTabPreview() {
-    MaterialTheme {
+    FlipperCorpTheme {
         val dates = (12..18).map { LocalDate(2025, 5, it) }
         ScheduleDateRowComposable(
             dates = dates,

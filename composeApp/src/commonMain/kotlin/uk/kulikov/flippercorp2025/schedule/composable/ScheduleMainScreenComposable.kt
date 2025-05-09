@@ -26,7 +26,7 @@ import uk.kulikov.flippercorp2025.schedule.ScheduleScreenState
 @Composable
 fun ScheduleMainScreenComposable(
     scheduleDecomposeComponent: ScheduleDecomposeComponent,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     val screen by scheduleDecomposeComponent.screen.subscribeAsState()
 

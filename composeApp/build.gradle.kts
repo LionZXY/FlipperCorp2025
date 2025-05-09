@@ -93,6 +93,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines)
             implementation(libs.essenty.lifecycle)
             implementation(libs.essenty.lifecycle.coroutines)
+            implementation(libs.logging)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
