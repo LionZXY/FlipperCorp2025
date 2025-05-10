@@ -12,6 +12,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.Json
 import uk.kulikov.flippercorp2025.model.DayEvents
 import uk.kulikov.flippercorp2025.model.Event
+import uk.kulikov.flippercorp2025.model.EventActivity
 
 private const val HOST_URL = "https://cultural-flip.online"
 
@@ -29,7 +30,24 @@ object NetworkDao {
         val dates = getDates()
 
         return@withContext dates.map {
-            getDayEvents(it)
+            val dayEvents = getDayEvents(it)
+            dayEvents.copy(
+                events = dayEvents
+                    .events
+                    .map { event ->
+                        val activity = event.activity
+                        if (activity != null) {
+                            event.copy(
+                                activity = activity.copy(
+                                    imageUri = "${HOST_URL}/images/${activity.imageUri}"
+                                )
+                            )
+                        } else {
+                            event
+                        }
+                    }
+            )
+
         }
     }
 

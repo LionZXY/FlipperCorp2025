@@ -9,10 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import uk.kulikov.flippercorp2025.model.Event
+import uk.kulikov.flippercorp2025.model.EventActivity
 
 @Composable
 fun ScheduleEventsLazyColumnComposable(
-    events: List<Event>
+    events: List<Event>,
+    onOpenActivity: (EventActivity, Event) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.padding(16.dp)
@@ -23,7 +25,9 @@ fun ScheduleEventsLazyColumnComposable(
             ScheduleEventComposable(
                 modifier = Modifier,
                 event = event,
-                onOpenActivity = {}
+                onOpenActivity = {
+                    onOpenActivity(it, event)
+                }
             )
         }
     }

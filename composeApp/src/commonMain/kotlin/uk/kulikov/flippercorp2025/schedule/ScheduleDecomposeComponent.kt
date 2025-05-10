@@ -8,17 +8,14 @@ import com.diamondedge.logging.logging
 import kotlinx.coroutines.launch
 import uk.kulikov.flippercorp2025.dao.NetworkDao
 
-interface ScheduleDecomposeComponent {
-    val screen: Value<ScheduleScreenState>
-}
 
 class ScheduleDecomposeComponentImpl(
     componentContext: ComponentContext
-) : ScheduleDecomposeComponent {
+)  {
     private val _screen = MutableValue<ScheduleScreenState>(
         ScheduleScreenState.Loading
     )
-    override val screen: Value<ScheduleScreenState> = _screen
+    val screen: Value<ScheduleScreenState> = _screen
 
     init {
         componentContext.coroutineScope()

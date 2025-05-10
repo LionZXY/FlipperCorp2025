@@ -5,8 +5,11 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.popTo
+import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
-import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponent
+import uk.kulikov.flippercorp2025.model.Event
+import uk.kulikov.flippercorp2025.model.EventActivity
+import uk.kulikov.flippercorp2025.root.RootComponent.Child.*
 import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponentImpl
 
 interface RootComponent {
@@ -15,34 +18,48 @@ interface RootComponent {
     // It's possible to pop multiple screens at a time on iOS
     fun onBackClicked(toIndex: Int)
 
+    fun onOpenActivity(activity: EventActivity, event: Event)
+
     // Defines all possible child components
     sealed class Child {
-        class Schedule(val component: ScheduleDecomposeComponent) : Child()
+        class Schedule(val component: ScheduleDecomposeComponentImpl) : Child()
+        class Activity(
+            val activity: EventActivity,
+            val event: Event
+        ) : Child()
     }
 }
 
 class DefaultRootComponent(
     componentContext: ComponentContext,
 ) : RootComponent, ComponentContext by componentContext {
-    private val navigation = StackNavigation<RootConfig.Schedule>()
+    private val navigation = StackNavigation<RootConfig>()
 
     override val stack: Value<ChildStack<RootConfig, RootComponent.Child>> =
         childStack(
             source = navigation,
-            serializer = RootConfig.Schedule.serializer(),
+            serializer = RootConfig.serializer(),
             initialConfiguration = RootConfig.Schedule, // The initial child component is List
             handleBackButton = true, // Automatically pop from the stack on back button presses
             childFactory = ::child,
         )
 
+    override fun onOpenActivity(activity: EventActivity, event: Event) {
+        navigation.pushNew(RootConfig.Activity(activity, event))
+    }
 
     private fun child(
         config: RootConfig, componentContext: ComponentContext
     ): RootComponent.Child = when (config) {
-        is RootConfig.Schedule -> RootComponent.Child.Schedule(
+        is RootConfig.Schedule -> Schedule(
             ScheduleDecomposeComponentImpl(
                 componentContext
             )
+        )
+
+        is RootConfig.Activity -> Activity(
+            config.activity,
+            config.event
         )
     }
 

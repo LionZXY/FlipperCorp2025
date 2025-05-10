@@ -20,12 +20,15 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import uk.kulikov.flippercorp2025.model.DayEvents
-import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponent
+import uk.kulikov.flippercorp2025.model.Event
+import uk.kulikov.flippercorp2025.model.EventActivity
+import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponentImpl
 import uk.kulikov.flippercorp2025.schedule.ScheduleScreenState
 
 @Composable
 fun ScheduleMainScreenComposable(
-    scheduleDecomposeComponent: ScheduleDecomposeComponent,
+    scheduleDecomposeComponent: ScheduleDecomposeComponentImpl,
+    onOpenActivity: (EventActivity, Event) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val screen by scheduleDecomposeComponent.screen.subscribeAsState()
@@ -33,7 +36,8 @@ fun ScheduleMainScreenComposable(
     when (val localScreen = screen) {
         is ScheduleScreenState.Loaded -> ScheduleMainScreenComposableContent(
             modifier = modifier,
-            screenStateLoaded = localScreen
+            screenStateLoaded = localScreen,
+            onOpenActivity = onOpenActivity
         )
 
         ScheduleScreenState.Loading -> Box(
@@ -48,7 +52,8 @@ fun ScheduleMainScreenComposable(
 @Composable
 private fun ScheduleMainScreenComposableContent(
     modifier: Modifier,
-    screenStateLoaded: ScheduleScreenState.Loaded
+    screenStateLoaded: ScheduleScreenState.Loaded,
+    onOpenActivity: (EventActivity, Event) -> Unit,
 ) = Column(modifier) {
     var selectedDay by remember {
         mutableStateOf(
@@ -70,7 +75,9 @@ private fun ScheduleMainScreenComposableContent(
         }
     )
 
-    ScheduleEventsLazyColumnComposable(events = selectedDay.events)
+    ScheduleEventsLazyColumnComposable(
+        events = selectedDay.events, onOpenActivity = onOpenActivity
+    )
 }
 
 private fun getNearestDay(dates: List<DayEvents>, date: LocalDate): DayEvents {
