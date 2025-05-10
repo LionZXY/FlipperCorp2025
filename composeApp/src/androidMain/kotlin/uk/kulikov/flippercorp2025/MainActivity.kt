@@ -1,6 +1,5 @@
 package uk.kulikov.flippercorp2025
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,7 +9,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.arkivanov.decompose.defaultComponentContext
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SharedPreferencesSettings
+import kotlinx.io.files.Path
 import uk.kulikov.flippercorp2025.root.DefaultRootComponent
+import uk.kulikov.flippercorp2025.utils.PlatformAppPath
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,9 @@ class MainActivity : ComponentActivity() {
                     MODE_PRIVATE
                 )
             ),
+            platformAppPath = PlatformAppPath(
+                appPath = Path(filesDir.absolutePath)
+            )
         )
 
         setContent {

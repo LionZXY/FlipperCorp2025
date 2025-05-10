@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import uk.kulikov.flippercorp2025.loading.network.NetworkDao
 import uk.kulikov.flippercorp2025.model.LoadedAppState
+import uk.kulikov.flippercorp2025.utils.PlatformAppPath
 
 private const val SETTINGS_KEY = "app_state"
 
@@ -19,8 +20,10 @@ class LoadingDecomposeComponentImpl(
     private val componentContext: ComponentContext,
     private val settings: ObservableSettings,
     private val onLoaded: (LoadedAppState) -> Unit,
+    private val platformAppPath: PlatformAppPath
 ) : LoadingDecomposeComponent, ComponentContext by componentContext {
     private val logger = logging("LoadingDecomposeComponent")
+    private val networkDao = NetworkDao(platformAppPath)
     private val _state = MutableValue<LoadingState>(LoadingState.Loading.LoadingDates)
     override val state = _state
 
@@ -39,10 +42,10 @@ class LoadingDecomposeComponentImpl(
                 return@launch
             }
 
-            NetworkDao.load {
+            networkDao.load {
                 _state.value = it
             }.onSuccess {
-                //TODO saveLocally(it)
+                saveLocally(it)
                 onLoaded(it)
             }.onFailure {
                 logger.error(it) { "Failed to load from network. Reason: ${it.message}" }

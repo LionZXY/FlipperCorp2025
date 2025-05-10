@@ -102,6 +102,8 @@ kotlin {
             implementation(libs.settings)
             implementation(libs.settings.serialization)
             implementation(libs.settings.observable)
+
+            implementation(libs.hash.md5)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

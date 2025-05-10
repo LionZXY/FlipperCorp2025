@@ -25,6 +25,7 @@ import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.loading_dates
 import flipperculturalflip2025.composeapp.generated.resources.loading_events
 import flipperculturalflip2025.composeapp.generated.resources.loading_failed
+import flipperculturalflip2025.composeapp.generated.resources.loading_failed_btn
 import flipperculturalflip2025.composeapp.generated.resources.loading_images
 import flipperculturalflip2025.composeapp.generated.resources.loading_questions
 import uk.kulikov.flippercorp2025.loading.LoadingDecomposeComponent
@@ -98,7 +99,9 @@ private fun LoadingScreenStateComposable(
 
     if (currentState is LoadingState.Failed) {
         Button(onClick = onRepeat) {
-            Text(stringResource(Res.string.loading_failed))
+            Text(
+                stringResource(Res.string.loading_failed_btn)
+            )
         }
     }
 }

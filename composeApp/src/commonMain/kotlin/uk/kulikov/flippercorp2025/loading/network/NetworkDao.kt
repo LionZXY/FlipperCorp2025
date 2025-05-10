@@ -17,10 +17,13 @@ import uk.kulikov.flippercorp2025.model.DayEvents
 import uk.kulikov.flippercorp2025.model.LoadedAppState
 import uk.kulikov.flippercorp2025.model.api.Event
 import uk.kulikov.flippercorp2025.model.api.Question
+import uk.kulikov.flippercorp2025.utils.PlatformAppPath
 
 internal const val HOST_URL = "https://cultural-flip.online"
 
-object NetworkDao {
+class NetworkDao(
+    platformAppPath: PlatformAppPath
+) {
     private val json = Json {
         ignoreUnknownKeys = true
     }
@@ -29,6 +32,7 @@ object NetworkDao {
             json(json)
         }
     }
+    private val imageLoader = ImageLoader(client, platformAppPath)
 
     suspend fun load(
         onLoadingState: (LoadingState) -> Unit
@@ -37,6 +41,7 @@ object NetworkDao {
             val events = getAllData(onLoadingState)
             onLoadingState(LoadingState.Loading.LoadingQuestions)
             val questions = getQuestions()
+            imageLoader.loadAllImages(onLoadingState, events)
 
             return@withContext LoadedAppState(
                 questions.toImmutableList(),

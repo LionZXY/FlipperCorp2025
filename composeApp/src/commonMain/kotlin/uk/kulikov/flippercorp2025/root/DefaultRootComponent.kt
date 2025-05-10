@@ -14,6 +14,7 @@ import uk.kulikov.flippercorp2025.loading.LoadingDecomposeComponentImpl
 import uk.kulikov.flippercorp2025.main.MainDecomposeComponent
 import uk.kulikov.flippercorp2025.main.MainDecomposeComponentImpl
 import uk.kulikov.flippercorp2025.root.RootComponent.Child.*
+import uk.kulikov.flippercorp2025.utils.PlatformAppPath
 
 interface RootComponent {
     val stack: Value<ChildStack<*, Child>>
@@ -29,7 +30,8 @@ interface RootComponent {
 
 class DefaultRootComponent(
     componentContext: ComponentContext,
-    private val settings: ObservableSettings
+    private val settings: ObservableSettings,
+    private val platformAppPath: PlatformAppPath
 ) : RootComponent, ComponentContext by componentContext {
     private val navigation = StackNavigation<RootConfig>()
 
@@ -56,6 +58,7 @@ class DefaultRootComponent(
                 componentContext,
                 settings,
                 onLoaded = { navigation.replaceAll(RootConfig.Loaded(it)) },
+                platformAppPath = platformAppPath
             )
         )
     }
