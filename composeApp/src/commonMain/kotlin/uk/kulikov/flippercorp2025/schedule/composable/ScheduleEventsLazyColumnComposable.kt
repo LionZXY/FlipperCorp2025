@@ -8,8 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import uk.kulikov.flippercorp2025.model.Event
-import uk.kulikov.flippercorp2025.model.EventActivity
+import uk.kulikov.flippercorp2025.model.api.Event
+import uk.kulikov.flippercorp2025.model.api.EventActivity
 
 @Composable
 fun ScheduleEventsLazyColumnComposable(

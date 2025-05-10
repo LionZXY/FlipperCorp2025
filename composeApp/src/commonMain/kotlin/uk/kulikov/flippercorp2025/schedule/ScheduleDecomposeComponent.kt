@@ -5,28 +5,13 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.diamondedge.logging.logging
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 import uk.kulikov.flippercorp2025.dao.NetworkDao
+import uk.kulikov.flippercorp2025.model.DayEvents
 
 
 class ScheduleDecomposeComponentImpl(
-    componentContext: ComponentContext
-)  {
-    private val _screen = MutableValue<ScheduleScreenState>(
-        ScheduleScreenState.Loading
-    )
-    val screen: Value<ScheduleScreenState> = _screen
-
-    init {
-        componentContext.coroutineScope()
-            .launch {
-                runCatching {
-                    ScheduleScreenState.Loaded(NetworkDao.getAllData())
-                }.onSuccess {
-                    _screen.value = it
-                }.onFailure {
-                    logging("ScheduleDecomposeComponent").error(it) { "Failed to load data" }
-                }
-            }
-    }
-}
+    componentContext: ComponentContext,
+    val dayEvents: ImmutableList<DayEvents>
+)

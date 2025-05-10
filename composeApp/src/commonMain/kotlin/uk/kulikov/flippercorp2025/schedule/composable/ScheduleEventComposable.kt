@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.sp
 import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.ic_forward
 import org.jetbrains.compose.resources.painterResource
-import uk.kulikov.flippercorp2025.model.Event
-import uk.kulikov.flippercorp2025.model.EventActivity
-import uk.kulikov.flippercorp2025.model.getLocalizedTitle
+import uk.kulikov.flippercorp2025.model.api.Event
+import uk.kulikov.flippercorp2025.model.api.EventActivity
+import uk.kulikov.flippercorp2025.model.api.getLocalizedTitle
 
 @Composable
 fun ScheduleEventComposable(

@@ -8,6 +8,8 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import uk.kulikov.flippercorp2025.eventactivity.EventActivityComposable
 import uk.kulikov.flippercorp2025.faq.composable.FAQScreenComposable
+import uk.kulikov.flippercorp2025.loading.LoadingScreenComposable
+import uk.kulikov.flippercorp2025.main.MainScreenComposable
 import uk.kulikov.flippercorp2025.schedule.composable.ScheduleMainScreenComposable
 
 @Composable
@@ -21,22 +23,8 @@ fun RootComposable(
         animation = stackAnimation(fade()),
     ) {
         when (val child = it.instance) {
-            is RootComponent.Child.Schedule -> ScheduleMainScreenComposable(
-                scheduleDecomposeComponent = child.component,
-                modifier = Modifier.fillMaxSize(),
-                onOpenActivity = component::onOpenActivity
-
-            )
-
-            is RootComponent.Child.Activity -> EventActivityComposable(
-                eventActivity = child.activity,
-                event = child.event
-            )
-
-            is RootComponent.Child.FAQ -> FAQScreenComposable(
-                component = child.component,
-                modifier = Modifier.fillMaxSize(),
-            )
+            is RootComponent.Child.Loaded -> MainScreenComposable(child.component)
+            is RootComponent.Child.Loading -> LoadingScreenComposable(child.component)
         }
     }
 }

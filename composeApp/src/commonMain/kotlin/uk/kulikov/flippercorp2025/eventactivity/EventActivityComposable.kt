@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
-import uk.kulikov.flippercorp2025.model.Event
-import uk.kulikov.flippercorp2025.model.EventActivity
-import uk.kulikov.flippercorp2025.model.localizeTextRemember
+import uk.kulikov.flippercorp2025.model.api.Event
+import uk.kulikov.flippercorp2025.model.api.EventActivity
+import uk.kulikov.flippercorp2025.model.api.localizeTextRemember
 
 @Composable
 fun EventActivityComposable(

@@ -17,12 +17,15 @@ kotlin = "2.1.20"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization-json = "1.8.1"
 kotlinx-datetime = "0.6.2"
+kotlinx-io = "0.7.0"
+kotlinx-immutable = "0.3.8"
 ktor = "3.1.3"
 decompose = "3.3.0"
 essenty = "2.5.0"
 compose-localization = "1.1.1"
 logging = "2.0.3"
 coil = "3.1.0"
+settings = "1.3.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -41,6 +44,8 @@ kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
+kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-immutable"}
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
@@ -53,6 +58,9 @@ essenty-lifecycle-coroutines = { module = "com.arkivanov.essenty:lifecycle-corou
 logging = { module = "com.diamondedge:logging", version.ref = "logging" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
+settings-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "settings" }
+settings-observable = { module = "com.russhwolf:multiplatform-settings-make-observable", version.ref = "settings" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

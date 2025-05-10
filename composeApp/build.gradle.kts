@@ -91,11 +91,17 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.kotlinx.coroutines)
+            implementation(libs.kotlinx.io)
+            implementation(libs.kotlinx.immutable)
             implementation(libs.essenty.lifecycle)
             implementation(libs.essenty.lifecycle.coroutines)
             implementation(libs.logging)
             implementation(libs.coil.compose)
             implementation(libs.coil.ktor3)
+
+            implementation(libs.settings)
+            implementation(libs.settings.serialization)
+            implementation(libs.settings.observable)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

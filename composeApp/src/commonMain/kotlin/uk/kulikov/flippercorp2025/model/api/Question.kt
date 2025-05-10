@@ -1,4 +1,4 @@
-package uk.kulikov.flippercorp2025.model
+package uk.kulikov.flippercorp2025.model.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

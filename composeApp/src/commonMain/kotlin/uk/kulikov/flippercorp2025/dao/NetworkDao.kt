@@ -6,14 +6,17 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.request.url
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.collections.immutable.toPersistentList
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.Json
 import uk.kulikov.flippercorp2025.model.DayEvents
-import uk.kulikov.flippercorp2025.model.Event
-import uk.kulikov.flippercorp2025.model.EventActivity
-import uk.kulikov.flippercorp2025.model.Question
+import uk.kulikov.flippercorp2025.model.api.Event
+import uk.kulikov.flippercorp2025.model.api.Question
 
 private const val HOST_URL = "https://cultural-flip.online"
 
@@ -50,7 +53,7 @@ object NetworkDao {
                         } else {
                             event
                         }
-                    }
+                    }.toPersistentList()
             )
 
         }
@@ -66,6 +69,6 @@ object NetworkDao {
         val events = client.get {
             url("${HOST_URL}/api/schedule/${date.toString()}")
         }.body<List<Event>>()
-        return DayEvents(date, events)
+        return DayEvents(date, events.toImmutableList())
     }
 }

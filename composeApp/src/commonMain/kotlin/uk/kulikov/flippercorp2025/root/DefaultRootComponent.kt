@@ -1,6 +1,5 @@
 package uk.kulikov.flippercorp2025.root
 
-import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -9,15 +8,19 @@ import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
-import com.hyperether.resources.stringResource
+import com.russhwolf.settings.ObservableSettings
 import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.title_activity
 import flipperculturalflip2025.composeapp.generated.resources.title_faq
 import flipperculturalflip2025.composeapp.generated.resources.title_schedule
 import org.jetbrains.compose.resources.StringResource
 import uk.kulikov.flippercorp2025.faq.FAQDecomposeComponent
-import uk.kulikov.flippercorp2025.model.Event
-import uk.kulikov.flippercorp2025.model.EventActivity
+import uk.kulikov.flippercorp2025.loading.LoadingDecomposeComponent
+import uk.kulikov.flippercorp2025.main.MainConfig
+import uk.kulikov.flippercorp2025.main.MainDecomposeComponent
+import uk.kulikov.flippercorp2025.main.MainDecomposeComponentImpl
+import uk.kulikov.flippercorp2025.model.api.Event
+import uk.kulikov.flippercorp2025.model.api.EventActivity
 import uk.kulikov.flippercorp2025.root.RootComponent.Child.*
 import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponentImpl
 
@@ -27,34 +30,15 @@ interface RootComponent {
     // It's possible to pop multiple screens at a time on iOS
     fun onBackClicked(toIndex: Int)
 
-    fun replace(config: RootConfig)
-
-    fun onOpenActivity(activity: EventActivity, event: Event)
-
     sealed interface Child {
-        val title: StringResource
-
-        class Schedule(val component: ScheduleDecomposeComponentImpl) : Child {
-            override val title = Res.string.title_schedule
-        }
-
-        class Activity(
-            val activity: EventActivity,
-            val event: Event
-        ) : Child {
-            override val title = Res.string.title_activity
-        }
-
-        class FAQ(
-            val component: FAQDecomposeComponent
-        ) : Child {
-            override val title = Res.string.title_faq
-        }
+        data class Loading(val component: LoadingDecomposeComponent) : Child
+        data class Loaded(val component: MainDecomposeComponent) : Child
     }
 }
 
 class DefaultRootComponent(
     componentContext: ComponentContext,
+    private val settings: ObservableSettings
 ) : RootComponent, ComponentContext by componentContext {
     private val navigation = StackNavigation<RootConfig>()
 
@@ -62,41 +46,29 @@ class DefaultRootComponent(
         childStack(
             source = navigation,
             serializer = RootConfig.serializer(),
-            initialConfiguration = RootConfig.Schedule, // The initial child component is List
+            initialConfiguration = RootConfig.Loading, // The initial child component is List
             handleBackButton = true, // Automatically pop from the stack on back button presses
             childFactory = ::child,
         )
 
-    override fun onOpenActivity(activity: EventActivity, event: Event) {
-        navigation.pushNew(RootConfig.Activity(activity, event))
-    }
-
-    override fun replace(config: RootConfig) {
-        navigation.replaceAll(config)
-    }
-
     private fun child(
         config: RootConfig, componentContext: ComponentContext
     ): RootComponent.Child = when (config) {
-        is RootConfig.Schedule -> Schedule(
-            ScheduleDecomposeComponentImpl(
-                componentContext
+        is RootConfig.Loaded -> Loaded(
+            MainDecomposeComponentImpl(
+                componentContext, config.appState
             )
         )
 
-        is RootConfig.Activity -> Activity(
-            config.activity,
-            config.event
-        )
-
-        RootConfig.FAQ -> FAQ(
-            FAQDecomposeComponent(
-                componentContext
-            )
-        )
+        RootConfig.Loading -> Loading(LoadingDecomposeComponent(componentContext, settings))
     }
 
     override fun onBackClicked(toIndex: Int) {
-        navigation.popTo(index = toIndex)
+        val child = stack.value.active.instance as? Loaded
+        if (child != null) {
+            child.component.onBackClicked(toIndex)
+        } else {
+            navigation.popTo(toIndex)
+        }
     }
 }

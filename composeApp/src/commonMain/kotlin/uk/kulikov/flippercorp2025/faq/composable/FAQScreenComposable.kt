@@ -30,20 +30,18 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import uk.kulikov.flippercorp2025.FlipperCorpTheme
 import uk.kulikov.flippercorp2025.faq.FAQDecomposeComponent
-import uk.kulikov.flippercorp2025.model.Question
-import uk.kulikov.flippercorp2025.model.localizeTextRemember
+import uk.kulikov.flippercorp2025.model.api.Question
+import uk.kulikov.flippercorp2025.model.api.localizeTextRemember
 
 @Composable
 fun FAQScreenComposable(
     component: FAQDecomposeComponent,
     modifier: Modifier = Modifier,
 ) {
-    val questions by component.screen.subscribeAsState()
-
     LazyColumn(
         modifier = modifier
     ) {
-        items(questions) { question ->
+        items(component.questions) { question ->
             SelectionContainer {
                 QuestionElement(question)
             }

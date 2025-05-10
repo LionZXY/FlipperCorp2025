@@ -4,10 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,12 +28,12 @@ import flipperculturalflip2025.composeapp.generated.resources.title_schedule
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
-import uk.kulikov.flippercorp2025.root.RootComponent
-import uk.kulikov.flippercorp2025.root.RootConfig
+import uk.kulikov.flippercorp2025.main.MainConfig
+import uk.kulikov.flippercorp2025.main.MainDecomposeComponent
 
 @Composable
 fun DrawerContentComposable(
-    component: RootComponent,
+    component: MainDecomposeComponent,
     onBack: () -> Unit
 ) {
     Column {
@@ -59,7 +57,7 @@ fun DrawerContentComposable(
 
         DrawerElementComposable(
             modifier = Modifier.clickable {
-                component.replace(RootConfig.Schedule)
+                component.replace(MainConfig.Schedule)
                 onBack()
             },
             text = Res.string.title_schedule,
@@ -70,7 +68,7 @@ fun DrawerContentComposable(
 
         DrawerElementComposable(
             modifier = Modifier.clickable {
-                component.replace(RootConfig.FAQ)
+                component.replace(MainConfig.FAQ)
                 onBack()
             },
             text = Res.string.title_faq,

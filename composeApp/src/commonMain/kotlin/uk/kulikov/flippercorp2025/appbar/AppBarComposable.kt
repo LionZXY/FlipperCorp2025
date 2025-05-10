@@ -18,11 +18,12 @@ import flipperculturalflip2025.composeapp.generated.resources.ic_forward
 import flipperculturalflip2025.composeapp.generated.resources.ic_hamburger
 import org.jetbrains.compose.resources.painterResource
 import uk.kulikov.flippercorp2025.appbar.switch.LanguageSwitchComposable
+import uk.kulikov.flippercorp2025.main.MainDecomposeComponent
 import uk.kulikov.flippercorp2025.root.RootComponent
 
 @Composable
 fun AppBarComposable(
-    component: RootComponent,
+    component: MainDecomposeComponent,
     onOpenDrawer: () -> Unit,
 ) {
     TopAppBar(
