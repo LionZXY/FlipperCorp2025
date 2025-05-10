@@ -4,11 +4,18 @@ import Foundation
 class RootHolder: ObservableObject {
     let lifecycle: LifecycleRegistry
     let componentContext: ComponentContext
+    private let stateKeeper = StateKeeperDispatcherKt.StateKeeperDispatcher(savedState: nil)
+    let backDispatcher: BackDispatcher = BackDispatcherKt.BackDispatcher()
 
-    init() {
+    init(){
         lifecycle = LifecycleRegistryKt.LifecycleRegistry()
 
-        componentContext = DefaultComponentContext(lifecycle: lifecycle)
+        componentContext = DefaultComponentContext(
+            lifecycle: lifecycle,
+            stateKeeper: stateKeeper,
+            instanceKeeper: nil,
+            backHandler: backDispatcher
+        )
 
         LifecycleRegistryExtKt.create(lifecycle)
     }

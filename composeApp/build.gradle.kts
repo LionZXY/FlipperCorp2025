@@ -32,9 +32,12 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
 
+            export(libs.settings)
+
             export(libs.decompose)
             export(libs.essenty.lifecycle)
-            export(libs.settings)
+            export(libs.essenty.backhandler)
+            export(libs.essenty.statekeeper)
         }
     }
 
@@ -95,6 +98,9 @@ kotlin {
             implementation(libs.kotlinx.io)
             implementation(libs.kotlinx.immutable)
             api(libs.essenty.lifecycle)
+            api(libs.essenty.backhandler)
+            api(libs.essenty.statekeeper)
+
             implementation(libs.essenty.lifecycle.coroutines)
             implementation(libs.logging)
             implementation(libs.coil.compose)

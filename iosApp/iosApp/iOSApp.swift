@@ -13,7 +13,10 @@ struct iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ComposeView(componentContext: rootHolder.componentContext)
+            ComposeView(
+                componentContext: rootHolder.componentContext,
+                backDispatcher: rootHolder.backDispatcher
+            )
                 .ignoresSafeArea()
                 .onChange(of: scenePhase) { newPhase in
                     switch newPhase {

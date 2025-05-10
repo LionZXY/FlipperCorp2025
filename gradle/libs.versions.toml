@@ -30,7 +30,7 @@ kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-co
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
-kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-immutable"}
+kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-immutable" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
@@ -40,13 +40,15 @@ decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decom
 decompose-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
 essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
 essenty-lifecycle-coroutines = { module = "com.arkivanov.essenty:lifecycle-coroutines", version.ref = "essenty" }
+essenty-backhandler = { module = "com.arkivanov.essenty:back-handler", version.ref = "essenty" }
+essenty-statekeeper = { module = "com.arkivanov.essenty:state-keeper", version.ref = "essenty" }
 logging = { module = "com.diamondedge:logging", version.ref = "logging" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
 settings-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "settings" }
 settings-observable = { module = "com.russhwolf:multiplatform-settings-make-observable", version.ref = "settings" }
-hash-md5 = {module = "org.kotlincrypto.hash:md", version.ref = "hash"}
+hash-md5 = { module = "org.kotlincrypto.hash:md", version.ref = "hash" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
