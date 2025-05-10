@@ -1,16 +1,12 @@
 package uk.kulikov.flippercorp2025.root
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
-import uk.kulikov.flippercorp2025.eventactivity.EventActivityComposable
-import uk.kulikov.flippercorp2025.faq.composable.FAQScreenComposable
-import uk.kulikov.flippercorp2025.loading.LoadingScreenComposable
+import uk.kulikov.flippercorp2025.loading.composable.LoadingScreenComposable
 import uk.kulikov.flippercorp2025.main.MainScreenComposable
-import uk.kulikov.flippercorp2025.schedule.composable.ScheduleMainScreenComposable
 
 @Composable
 fun RootComposable(

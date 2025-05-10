@@ -11,4 +11,11 @@
     <string name="title_schedule">Расписание</string>
     <string name="title_activity">Активность</string>
     <string name="title_faq">Вопросы</string>
+
+    <string name="loading_failed">Ошибка загрузки. Повторите, пожалуйста</string>
+    <string name="loading_failed_btn">Повторить</string>
+    <string name="loading_dates">Загрузка дат</string>
+    <string name="loading_questions">Загрузка вопросов</string>
+    <string name="loading_events">Загрузка событий</string>
+    <string name="loading_images">Загрузка изображений</string>
 </resources>

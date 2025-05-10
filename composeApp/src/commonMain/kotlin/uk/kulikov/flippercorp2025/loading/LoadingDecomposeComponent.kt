@@ -1,10 +1,9 @@
 package uk.kulikov.flippercorp2025.loading
 
-import com.arkivanov.decompose.ComponentContext
-import com.russhwolf.settings.ObservableSettings
+import com.arkivanov.decompose.value.Value
 
-class LoadingDecomposeComponent(
-    private val componentContext: ComponentContext,
-    private val settings: ObservableSettings
-) {
+interface LoadingDecomposeComponent {
+    val state: Value<LoadingState>
+
+    fun tryLoadData()
 }

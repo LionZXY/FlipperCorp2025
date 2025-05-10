@@ -11,4 +11,11 @@
     <string name="title_schedule">Schedule</string>
     <string name="title_activity">Activity</string>
     <string name="title_faq">FAQs</string>
+
+    <string name="loading_failed">Loading error. Please try again</string>
+    <string name="loading_failed_btn">Try Again</string>
+    <string name="loading_dates">Loading dates</string>
+    <string name="loading_questions">Loading questions</string>
+    <string name="loading_events">Loading events</string>
+    <string name="loading_images">Loading images</string>
 </resources>
