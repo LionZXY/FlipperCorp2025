@@ -34,6 +34,7 @@ kotlin {
 
             export(libs.decompose)
             export(libs.essenty.lifecycle)
+            export(libs.settings)
         }
     }
 
@@ -88,18 +89,18 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.json)
             implementation(libs.ktor.client.negotiation)
-            implementation(libs.decompose)
+            api(libs.decompose)
             implementation(libs.decompose.compose)
             implementation(libs.kotlinx.coroutines)
             implementation(libs.kotlinx.io)
             implementation(libs.kotlinx.immutable)
-            implementation(libs.essenty.lifecycle)
+            api(libs.essenty.lifecycle)
             implementation(libs.essenty.lifecycle.coroutines)
             implementation(libs.logging)
             implementation(libs.coil.compose)
             implementation(libs.coil.ktor3)
 
-            implementation(libs.settings)
+            api(libs.settings)
             implementation(libs.settings.serialization)
             implementation(libs.settings.observable)
 
