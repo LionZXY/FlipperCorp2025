@@ -83,19 +83,23 @@ private fun MainScreenContentComposable(component: MainDecomposeComponent, modif
         when (val child = it.instance) {
             is MainDecomposeComponent.Child.Schedule -> ScheduleMainScreenComposable(
                 scheduleDecomposeComponent = child.component,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize()
+                    .background(MaterialTheme.colors.background),
                 onOpenActivity = component::onOpenActivity
 
             )
 
             is MainDecomposeComponent.Child.Activity -> EventActivityComposable(
+                modifier = Modifier.fillMaxSize()
+                    .background(MaterialTheme.colors.background),
                 eventActivity = child.activity,
-                event = child.event
+                event = child.event,
             )
 
             is MainDecomposeComponent.Child.FAQ -> FAQScreenComposable(
+                modifier = Modifier.fillMaxSize()
+                    .background(MaterialTheme.colors.background),
                 component = child.component,
-                modifier = Modifier.fillMaxSize(),
             )
         }
     }

@@ -27,11 +27,12 @@ import uk.kulikov.flippercorp2025.model.api.localizeTextRemember
 
 @Composable
 fun EventActivityComposable(
+    modifier: Modifier = Modifier,
     eventActivity: EventActivity,
     event: Event
 ) {
     Column(
-        modifier = Modifier.verticalScroll(rememberScrollState())
+        modifier = modifier.verticalScroll(rememberScrollState())
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

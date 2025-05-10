@@ -1,5 +1,7 @@
 package uk.kulikov.flippercorp2025.root
 
+import androidx.compose.foundation.background
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
@@ -17,14 +19,21 @@ fun RootComposable(
     Children(
         stack = component.stack,
         modifier = modifier,
-        animation =  backAnimation(
+        animation = backAnimation(
             backHandler = component.backHandler,
             onBack = component::onBackClicked,
         ),
     ) {
         when (val child = it.instance) {
-            is RootComponent.Child.Loaded -> MainScreenComposable(child.component)
-            is RootComponent.Child.Loading -> LoadingScreenComposable(child.component)
+            is RootComponent.Child.Loaded -> MainScreenComposable(
+                child.component,
+                modifier = Modifier.background(MaterialTheme.colors.background)
+            )
+
+            is RootComponent.Child.Loading -> LoadingScreenComposable(
+                child.component,
+                modifier = Modifier.background(MaterialTheme.colors.background)
+            )
         }
     }
 }
