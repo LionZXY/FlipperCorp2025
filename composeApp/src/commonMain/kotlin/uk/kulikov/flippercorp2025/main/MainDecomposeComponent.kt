@@ -2,6 +2,7 @@ package uk.kulikov.flippercorp2025.main
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.backhandler.BackHandler
 import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.title_activity
 import flipperculturalflip2025.composeapp.generated.resources.title_faq
@@ -14,6 +15,10 @@ import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponentImpl
 
 interface MainDecomposeComponent {
     val stack: Value<ChildStack<*, Child>>
+    val backHandler: BackHandler
+
+    // It's possible to pop multiple screens at a time on iOS
+    fun onBackClicked()
 
     // It's possible to pop multiple screens at a time on iOS
     fun onBackClicked(toIndex: Int)

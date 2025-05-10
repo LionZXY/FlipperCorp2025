@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.router.stack.replaceAll
@@ -28,6 +29,8 @@ class MainDecomposeComponentImpl(
             handleBackButton = true, // Automatically pop from the stack on back button presses
             childFactory = ::child,
         )
+
+
 
     override fun onOpenActivity(activity: EventActivity, event: Event) {
         navigation.pushNew(MainConfig.Activity(activity, event))
@@ -58,6 +61,10 @@ class MainDecomposeComponentImpl(
                 questions = loadedAppState.questions
             )
         )
+    }
+
+    override fun onBackClicked() {
+        navigation.pop()
     }
 
     override fun onBackClicked(toIndex: Int) {

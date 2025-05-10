@@ -4,10 +4,12 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.backhandler.BackHandler
 import com.russhwolf.settings.ObservableSettings
 import uk.kulikov.flippercorp2025.loading.LoadingDecomposeComponent
 import uk.kulikov.flippercorp2025.loading.LoadingDecomposeComponentImpl
@@ -18,7 +20,9 @@ import uk.kulikov.flippercorp2025.utils.PlatformAppPath
 
 interface RootComponent {
     val stack: Value<ChildStack<*, Child>>
+    val backHandler: BackHandler
 
+    fun onBackClicked()
     // It's possible to pop multiple screens at a time on iOS
     fun onBackClicked(toIndex: Int)
 
@@ -40,7 +44,6 @@ class DefaultRootComponent(
             source = navigation,
             serializer = RootConfig.serializer(),
             initialConfiguration = RootConfig.Loading, // The initial child component is List
-            handleBackButton = true, // Automatically pop from the stack on back button presses
             childFactory = ::child,
         )
 
@@ -61,6 +64,15 @@ class DefaultRootComponent(
                 platformAppPath = platformAppPath
             )
         )
+    }
+
+    override fun onBackClicked() {
+        val child = stack.value.active.instance as? Loaded
+        if (child != null) {
+            child.component.onBackClicked()
+        } else {
+            navigation.pop()
+        }
     }
 
     override fun onBackClicked(toIndex: Int) {

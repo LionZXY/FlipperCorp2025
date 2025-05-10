@@ -24,6 +24,7 @@ import uk.kulikov.flippercorp2025.appbar.DrawerContentComposable
 import uk.kulikov.flippercorp2025.eventactivity.EventActivityComposable
 import uk.kulikov.flippercorp2025.faq.composable.FAQScreenComposable
 import uk.kulikov.flippercorp2025.schedule.composable.ScheduleMainScreenComposable
+import uk.kulikov.flippercorp2025.utils.backAnimation
 
 @Composable
 fun MainScreenComposable(
@@ -42,6 +43,7 @@ fun MainScreenComposable(
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         ModalDrawer(
             drawerState = drawerState,
+            gesturesEnabled = false,
             drawerContent = {
                 DrawerContentComposable(component, onBack = {
                     scope.launch {
@@ -73,7 +75,10 @@ private fun MainScreenContentComposable(component: MainDecomposeComponent, modif
     Children(
         stack = component.stack,
         modifier = modifier,
-        animation = stackAnimation(fade()),
+        animation = backAnimation(
+            backHandler = component.backHandler,
+            onBack = component::onBackClicked,
+        ),
     ) {
         when (val child = it.instance) {
             is MainDecomposeComponent.Child.Schedule -> ScheduleMainScreenComposable(

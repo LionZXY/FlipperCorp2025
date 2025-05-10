@@ -22,6 +22,7 @@ import com.hyperether.resources.stringResource
 import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.ic_arrow_back
 import flipperculturalflip2025.composeapp.generated.resources.ic_calendar
+import flipperculturalflip2025.composeapp.generated.resources.ic_close
 import flipperculturalflip2025.composeapp.generated.resources.ic_help
 import flipperculturalflip2025.composeapp.generated.resources.title_faq
 import flipperculturalflip2025.composeapp.generated.resources.title_schedule
@@ -46,7 +47,7 @@ fun DrawerContentComposable(
         ) {
             Icon(
                 modifier = Modifier.padding(16.dp),
-                painter = painterResource(Res.drawable.ic_arrow_back),
+                painter = painterResource(Res.drawable.ic_close),
                 contentDescription = null,
                 tint = MaterialTheme.colors.onPrimary
             )

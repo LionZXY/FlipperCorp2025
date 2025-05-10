@@ -1,6 +1,7 @@
 package uk.kulikov.flippercorp2025.appbar
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.hyperether.resources.stringResource
 import flipperculturalflip2025.composeapp.generated.resources.Res
+import flipperculturalflip2025.composeapp.generated.resources.ic_arrow_back
 import flipperculturalflip2025.composeapp.generated.resources.ic_forward
 import flipperculturalflip2025.composeapp.generated.resources.ic_hamburger
 import org.jetbrains.compose.resources.painterResource
@@ -26,9 +28,10 @@ fun AppBarComposable(
     component: MainDecomposeComponent,
     onOpenDrawer: () -> Unit,
 ) {
+    val stack by component.stack.subscribeAsState()
+
     TopAppBar(
         title = {
-            val stack by component.stack.subscribeAsState()
 
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -37,15 +40,26 @@ fun AppBarComposable(
         },
         actions = {
             LanguageSwitchComposable(Modifier.width(128.dp))
+
         },
         navigationIcon = {
-            Icon(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .clickable(onClick = onOpenDrawer),
-                painter = painterResource(Res.drawable.ic_hamburger),
-                contentDescription = null
-            )
+            if (stack.items.size > 1) {
+                Icon(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clickable(onClick = component::onBackClicked),
+                    painter = painterResource(Res.drawable.ic_arrow_back),
+                    contentDescription = null
+                )
+            } else {
+                Icon(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clickable(onClick = onOpenDrawer),
+                    painter = painterResource(Res.drawable.ic_hamburger),
+                    contentDescription = null
+                )
+            }
         }
     )
 
