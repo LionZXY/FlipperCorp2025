@@ -66,7 +66,7 @@ private fun ScheduleDateRowTab(
         onClick = onSelect
     ) {
         Text(
-            modifier = Modifier.padding(horizontal = 12.dp),
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
             text = date.dayOfMonth.toString(),
         )
         val dayOfWeekNames = getDaysOfWeekNames()

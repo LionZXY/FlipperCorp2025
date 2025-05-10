@@ -1,5 +1,6 @@
 package uk.kulikov.flippercorp2025.root
 
+import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -7,6 +8,11 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.value.Value
+import com.hyperether.resources.stringResource
+import flipperculturalflip2025.composeapp.generated.resources.Res
+import flipperculturalflip2025.composeapp.generated.resources.title_activity
+import flipperculturalflip2025.composeapp.generated.resources.title_schedule
+import org.jetbrains.compose.resources.StringResource
 import uk.kulikov.flippercorp2025.model.Event
 import uk.kulikov.flippercorp2025.model.EventActivity
 import uk.kulikov.flippercorp2025.root.RootComponent.Child.*
@@ -20,13 +26,18 @@ interface RootComponent {
 
     fun onOpenActivity(activity: EventActivity, event: Event)
 
-    // Defines all possible child components
-    sealed class Child {
-        class Schedule(val component: ScheduleDecomposeComponentImpl) : Child()
+    sealed interface Child {
+        val title: StringResource
+
+        class Schedule(val component: ScheduleDecomposeComponentImpl) : Child {
+            override val title = Res.string.title_schedule
+        }
         class Activity(
             val activity: EventActivity,
             val event: Event
-        ) : Child()
+        ) : Child {
+            override val title = Res.string.title_activity
+        }
     }
 }
 

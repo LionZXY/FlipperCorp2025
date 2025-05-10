@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -37,32 +38,33 @@ fun EventActivityComposable(
             contentDescription = null,
             contentScale = ContentScale.FillWidth
         )
+        SelectionContainer {
+            Column(
+                Modifier
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = localizeTextRemember(eventActivity.name),
+                    fontSize = 32.sp
+                )
 
-        Column(
-            Modifier
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Text(
-                text = localizeTextRemember(eventActivity.name),
-                fontSize = 32.sp
-            )
+                Text(
+                    text = localizeTextRemember(eventActivity.description)
+                )
 
-            Text(
-                text = localizeTextRemember(eventActivity.description)
-            )
-
-            Text(
-                text = event.date.format(LocalDate.Format {
-                    dayOfMonth()
-                    chars("-")
-                    monthNumber()
-                    chars("-")
-                    year()
-                }),
-                fontWeight = FontWeight.Bold
-            )
-            Text(text = "${event.startTime} - ${event.endTime}")
+                Text(
+                    text = event.date.format(LocalDate.Format {
+                        dayOfMonth()
+                        chars("-")
+                        monthNumber()
+                        chars("-")
+                        year()
+                    }),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = "${event.startTime} - ${event.endTime}")
+            }
         }
 
     }

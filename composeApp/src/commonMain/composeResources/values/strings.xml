@@ -7,4 +7,8 @@
     <string name="week_friday">Fri</string>
     <string name="week_saturday">Sat</string>
     <string name="week_sunday">Sun</string>
+
+    <string name="title_schedule">Schedule</string>
+    <string name="title_activity">Activity</string>
+    <string name="title_faq">FAQs</string>
 </resources>
