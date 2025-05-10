@@ -1,12 +1,18 @@
 package uk.kulikov.flippercorp2025.schedule.composable
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -22,7 +28,7 @@ fun ScheduleMainScreenComposable(
     scheduleDecomposeComponent: ScheduleDecomposeComponentImpl,
     onOpenActivity: (EventActivity, Event) -> Unit,
     modifier: Modifier = Modifier
-)  = Column(modifier) {
+) = Column(modifier) {
     var selectedDay by remember {
         mutableStateOf(
             getNearestDay(
@@ -32,6 +38,17 @@ fun ScheduleMainScreenComposable(
         )
     }
 
+    val scope = rememberCoroutineScope()
+    val pagerState = rememberPagerState(
+        initialPage = scheduleDecomposeComponent.dayEvents.indexOf(selectedDay),
+        pageCount = { scheduleDecomposeComponent.dayEvents.size }
+    )
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            selectedDay = scheduleDecomposeComponent.dayEvents[page]
+        }
+    }
+
     ScheduleDateRowComposable(
         dates = scheduleDecomposeComponent.dayEvents.map { it.date },
         selected = selectedDay.date,
@@ -39,13 +56,23 @@ fun ScheduleMainScreenComposable(
             val foundDay = scheduleDecomposeComponent.dayEvents.find { localDate == it.date }
             if (foundDay != null) {
                 selectedDay = foundDay
+                scope.launch {
+                    pagerState.scrollToPage(scheduleDecomposeComponent.dayEvents.indexOf(foundDay))
+                }
             }
         }
     )
 
-    ScheduleEventsLazyColumnComposable(
-        events = selectedDay.events, onOpenActivity = onOpenActivity
-    )
+    HorizontalPager(
+        state = pagerState,
+        key = { index -> scheduleDecomposeComponent.dayEvents[index].date.toString() }
+    ) { page ->
+        val events = scheduleDecomposeComponent.dayEvents[page].events
+        ScheduleEventsLazyColumnComposable(
+            events = events, onOpenActivity = onOpenActivity
+        )
+    }
+
 }
 
 private fun getNearestDay(dates: List<DayEvents>, date: LocalDate): DayEvents {
