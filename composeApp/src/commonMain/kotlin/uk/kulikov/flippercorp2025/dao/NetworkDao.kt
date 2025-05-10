@@ -13,6 +13,7 @@ import kotlinx.serialization.json.Json
 import uk.kulikov.flippercorp2025.model.DayEvents
 import uk.kulikov.flippercorp2025.model.Event
 import uk.kulikov.flippercorp2025.model.EventActivity
+import uk.kulikov.flippercorp2025.model.Question
 
 private const val HOST_URL = "https://cultural-flip.online"
 
@@ -24,6 +25,10 @@ object NetworkDao {
         install(ContentNegotiation) {
             json(json)
         }
+    }
+
+    suspend fun getQuestions(): List<Question> {
+        return client.get("$HOST_URL/api/questions/getAll").body()
     }
 
     suspend fun getAllData(): List<DayEvents> = withContext(Dispatchers.Default) {

@@ -35,7 +35,7 @@ fun AppBarComposable(
             )
         },
         actions = {
-            LanguageSwitchComposable(Modifier.width(150.dp))
+            LanguageSwitchComposable(Modifier.width(128.dp))
         },
         navigationIcon = {
             Icon(
