@@ -1,7 +1,9 @@
 package uk.kulikov.flippercorp2025.appbar
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -15,6 +17,7 @@ import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.ic_forward
 import flipperculturalflip2025.composeapp.generated.resources.ic_hamburger
 import org.jetbrains.compose.resources.painterResource
+import uk.kulikov.flippercorp2025.appbar.switch.LanguageSwitchComposable
 import uk.kulikov.flippercorp2025.root.RootComponent
 
 @Composable
@@ -27,11 +30,12 @@ fun AppBarComposable(
             val stack by component.stack.subscribeAsState()
 
             Text(
+                modifier = Modifier.fillMaxWidth(),
                 text = stringResource(stack.active.instance.title)
             )
         },
         actions = {
-
+            LanguageSwitchComposable(Modifier.width(150.dp))
         },
         navigationIcon = {
             Icon(
