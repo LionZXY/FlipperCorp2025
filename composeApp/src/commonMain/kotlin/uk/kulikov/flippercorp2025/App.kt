@@ -1,6 +1,7 @@
 package uk.kulikov.flippercorp2025
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -19,6 +20,7 @@ import coil3.compose.setSingletonImageLoaderFactory
 import coil3.request.crossfade
 import kotlinx.coroutines.launch
 import uk.kulikov.flippercorp2025.appbar.AppBarComposable
+import uk.kulikov.flippercorp2025.appbar.DrawerContentComposable
 import uk.kulikov.flippercorp2025.root.RootComponent
 import uk.kulikov.flippercorp2025.root.RootComposable
 
@@ -42,7 +44,13 @@ fun App(component: RootComponent, modifier: Modifier = Modifier) {
             val scope = rememberCoroutineScope()
             val drawerState = rememberDrawerState(DrawerValue.Closed)
             ModalDrawer(
+                drawerState = drawerState,
                 drawerContent = {
+                    DrawerContentComposable(component, onBack = {
+                        scope.launch {
+                            drawerState.close()
+                        }
+                    })
                 }
             ) {
                 Scaffold(

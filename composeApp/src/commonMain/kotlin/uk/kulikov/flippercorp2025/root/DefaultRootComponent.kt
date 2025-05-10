@@ -7,12 +7,15 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.pushNew
+import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.hyperether.resources.stringResource
 import flipperculturalflip2025.composeapp.generated.resources.Res
 import flipperculturalflip2025.composeapp.generated.resources.title_activity
+import flipperculturalflip2025.composeapp.generated.resources.title_faq
 import flipperculturalflip2025.composeapp.generated.resources.title_schedule
 import org.jetbrains.compose.resources.StringResource
+import uk.kulikov.flippercorp2025.faq.FAQDecomposeComponent
 import uk.kulikov.flippercorp2025.model.Event
 import uk.kulikov.flippercorp2025.model.EventActivity
 import uk.kulikov.flippercorp2025.root.RootComponent.Child.*
@@ -24,6 +27,8 @@ interface RootComponent {
     // It's possible to pop multiple screens at a time on iOS
     fun onBackClicked(toIndex: Int)
 
+    fun replace(config: RootConfig)
+
     fun onOpenActivity(activity: EventActivity, event: Event)
 
     sealed interface Child {
@@ -32,11 +37,18 @@ interface RootComponent {
         class Schedule(val component: ScheduleDecomposeComponentImpl) : Child {
             override val title = Res.string.title_schedule
         }
+
         class Activity(
             val activity: EventActivity,
             val event: Event
         ) : Child {
             override val title = Res.string.title_activity
+        }
+
+        class FAQ(
+            val component: FAQDecomposeComponent
+        ) : Child {
+            override val title = Res.string.title_faq
         }
     }
 }
@@ -59,6 +71,10 @@ class DefaultRootComponent(
         navigation.pushNew(RootConfig.Activity(activity, event))
     }
 
+    override fun replace(config: RootConfig) {
+        navigation.replaceAll(config)
+    }
+
     private fun child(
         config: RootConfig, componentContext: ComponentContext
     ): RootComponent.Child = when (config) {
@@ -71,6 +87,12 @@ class DefaultRootComponent(
         is RootConfig.Activity -> Activity(
             config.activity,
             config.event
+        )
+
+        RootConfig.FAQ -> FAQ(
+            FAQDecomposeComponent(
+                componentContext
+            )
         )
     }
 

@@ -7,6 +7,7 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import uk.kulikov.flippercorp2025.eventactivity.EventActivityComposable
+import uk.kulikov.flippercorp2025.faq.composable.FAQScreenComposable
 import uk.kulikov.flippercorp2025.schedule.composable.ScheduleMainScreenComposable
 
 @Composable
@@ -16,7 +17,7 @@ fun RootComposable(
 ) {
     Children(
         stack = component.stack,
-        modifier = Modifier,
+        modifier = modifier,
         animation = stackAnimation(fade()),
     ) {
         when (val child = it.instance) {
@@ -30,6 +31,11 @@ fun RootComposable(
             is RootComponent.Child.Activity -> EventActivityComposable(
                 eventActivity = child.activity,
                 event = child.event
+            )
+
+            is RootComponent.Child.FAQ -> FAQScreenComposable(
+                component = child.component,
+                modifier = Modifier.fillMaxSize(),
             )
         }
     }

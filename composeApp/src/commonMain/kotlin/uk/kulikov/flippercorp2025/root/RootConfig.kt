@@ -14,4 +14,6 @@ sealed class RootConfig {
         val activity: EventActivity,
         val event: Event
     ) : RootConfig()
+
+    data object FAQ : RootConfig()
 }
