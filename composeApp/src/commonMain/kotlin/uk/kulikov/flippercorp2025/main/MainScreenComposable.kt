@@ -43,7 +43,7 @@ fun MainScreenComposable(
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         ModalDrawer(
             drawerState = drawerState,
-            gesturesEnabled = false,
+            gesturesEnabled = drawerState.isOpen,
             drawerContent = {
                 DrawerContentComposable(component, onBack = {
                     scope.launch {
