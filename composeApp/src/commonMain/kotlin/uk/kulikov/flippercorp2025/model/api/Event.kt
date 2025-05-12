@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import com.hyperether.resources.AppLocale
 import com.hyperether.resources.currentLanguage
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -19,6 +20,15 @@ data class Event(
     @SerialName("activity") var activity: EventActivity?,
     @SerialName("title") var title: String
 )
+
+fun Event.getStartDateTime(): LocalDateTime {
+    return LocalDateTime(date, startTime)
+}
+
+fun Event.getEndDateTime(): LocalDateTime {
+    return LocalDateTime(date, startTime)
+}
+
 
 @Composable
 fun Event.getLocalizedTitle(): String {

@@ -8,22 +8,25 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import uk.kulikov.flippercorp2025.model.api.Event
 import uk.kulikov.flippercorp2025.model.api.EventActivity
+import uk.kulikov.flippercorp2025.model.api.getStartDateTime
 
 @Composable
 fun ScheduleEventsLazyColumnComposable(
     events: List<Event>,
     onOpenActivity: (EventActivity, Event) -> Unit,
 ) {
+    val sortedEvents = remember(events) { events.sortedBy { it.getStartDateTime() } }
     LazyColumn(
         modifier = Modifier.padding(16.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(events) { event ->
+        items(sortedEvents) { event ->
             ScheduleEventComposable(
                 modifier = Modifier,
                 event = event,
