@@ -11,8 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import uk.kulikov.flippercorp2025.model.api.Event
 import uk.kulikov.flippercorp2025.model.api.EventActivity
+import uk.kulikov.flippercorp2025.model.api.getEndDateTime
 import uk.kulikov.flippercorp2025.model.api.getStartDateTime
 
 @Composable
@@ -30,6 +34,8 @@ fun ScheduleEventsLazyColumnComposable(
             ScheduleEventComposable(
                 modifier = Modifier,
                 event = event,
+                isDisabled = event.getEndDateTime() < Clock.System.now()
+                    .toLocalDateTime(TimeZone.currentSystemDefault()),
                 onOpenActivity = {
                     onOpenActivity(it, event)
                 }
