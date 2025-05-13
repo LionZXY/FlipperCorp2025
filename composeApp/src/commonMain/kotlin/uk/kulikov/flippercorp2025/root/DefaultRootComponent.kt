@@ -16,13 +16,16 @@ import uk.kulikov.flippercorp2025.loading.LoadingDecomposeComponentImpl
 import uk.kulikov.flippercorp2025.main.MainDecomposeComponent
 import uk.kulikov.flippercorp2025.main.MainDecomposeComponentImpl
 import uk.kulikov.flippercorp2025.root.RootComponent.Child.*
+import uk.kulikov.flippercorp2025.utils.LanguageSettings
 import uk.kulikov.flippercorp2025.utils.PlatformAppPath
 
 interface RootComponent {
     val stack: Value<ChildStack<*, Child>>
     val backHandler: BackHandler
+    val languageSettings: LanguageSettings
 
     fun onBackClicked()
+
     // It's possible to pop multiple screens at a time on iOS
     fun onBackClicked(toIndex: Int)
 
@@ -37,6 +40,7 @@ class DefaultRootComponent(
     private val settings: ObservableSettings,
     private val platformAppPath: PlatformAppPath
 ) : RootComponent, ComponentContext by componentContext {
+    override val languageSettings = LanguageSettings(settings)
     private val navigation = StackNavigation<RootConfig>()
 
     override val stack: Value<ChildStack<RootConfig, RootComponent.Child>> =
@@ -52,7 +56,9 @@ class DefaultRootComponent(
     ): RootComponent.Child = when (config) {
         is RootConfig.Loaded -> Loaded(
             MainDecomposeComponentImpl(
-                componentContext, config.appState
+                componentContext,
+                loadedAppState = config.appState,
+                languageSettings
             )
         )
 

@@ -79,7 +79,11 @@ fun ScheduleEventComposable(
                 if (eventActivity != null) {
                     Icon(
                         painter = painterResource(Res.drawable.ic_forward),
-                        tint = MaterialTheme.colors.primary,
+                        tint = if (isDisabled) {
+                            Color(0xFF808080)
+                        } else {
+                            MaterialTheme.colors.primary
+                        },
                         contentDescription = null
                     )
                 }

@@ -48,6 +48,7 @@ coil-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "co
 settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
 settings-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "settings" }
 settings-observable = { module = "com.russhwolf:multiplatform-settings-make-observable", version.ref = "settings" }
+settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "settings" }
 hash-md5 = { module = "org.kotlincrypto.hash:md", version.ref = "hash" }
 
 [plugins]

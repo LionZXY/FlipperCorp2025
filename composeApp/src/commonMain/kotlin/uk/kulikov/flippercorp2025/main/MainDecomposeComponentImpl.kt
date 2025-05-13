@@ -14,10 +14,12 @@ import uk.kulikov.flippercorp2025.model.LoadedAppState
 import uk.kulikov.flippercorp2025.model.api.Event
 import uk.kulikov.flippercorp2025.model.api.EventActivity
 import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponentImpl
+import uk.kulikov.flippercorp2025.utils.LanguageSettings
 
 class MainDecomposeComponentImpl(
     private val componentContext: ComponentContext,
-    private val loadedAppState: LoadedAppState
+    private val loadedAppState: LoadedAppState,
+    override val languageSettings: LanguageSettings
 ) : MainDecomposeComponent, ComponentContext by componentContext {
     private val navigation = StackNavigation<MainConfig>()
 

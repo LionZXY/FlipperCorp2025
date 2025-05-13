@@ -8,18 +8,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.flipperdevices.core.ui.tabswitch.ComposableTabSwitch
 import com.hyperether.resources.AppLocale
-import com.hyperether.resources.currentLanguage
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import uk.kulikov.flippercorp2025.FlipperCorpTheme
+import uk.kulikov.flippercorp2025.utils.LanguageSettings
+import uk.kulikov.flippercorp2025.utils.getLanguage
 
 @Composable
 fun LanguageSwitchComposable(
-    modifier: Modifier
+    modifier: Modifier,
+    settings: LanguageSettings
 ) {
     ComposableTabSwitch(
         modifier = modifier,
         tabs = AppLocale.entries.reversed(),
-        currentTab = currentLanguage.value
+        currentTab = settings.getLanguage()
     ) { language ->
         val text = when (language) {
             AppLocale.DEFAULT -> "EN"
@@ -28,18 +28,10 @@ fun LanguageSwitchComposable(
         Text(
             modifier = Modifier.fillMaxWidth()
                 .clickable {
-                    currentLanguage.value = language
+                    settings.setLanguage(language)
                 },
             textAlign = TextAlign.Center,
             text = text
         )
-    }
-}
-
-@Preview
-@Composable
-private fun LanguageSwitchComposablePreview() {
-    FlipperCorpTheme {
-        LanguageSwitchComposable(Modifier)
     }
 }

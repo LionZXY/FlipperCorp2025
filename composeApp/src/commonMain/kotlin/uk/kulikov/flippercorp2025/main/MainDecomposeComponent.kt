@@ -12,10 +12,12 @@ import uk.kulikov.flippercorp2025.faq.FAQDecomposeComponent
 import uk.kulikov.flippercorp2025.model.api.Event
 import uk.kulikov.flippercorp2025.model.api.EventActivity
 import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponentImpl
+import uk.kulikov.flippercorp2025.utils.LanguageSettings
 
 interface MainDecomposeComponent {
     val stack: Value<ChildStack<*, Child>>
     val backHandler: BackHandler
+    val languageSettings: LanguageSettings
 
     // It's possible to pop multiple screens at a time on iOS
     fun onBackClicked()

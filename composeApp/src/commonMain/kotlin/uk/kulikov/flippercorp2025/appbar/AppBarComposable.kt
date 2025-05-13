@@ -39,8 +39,10 @@ fun AppBarComposable(
             )
         },
         actions = {
-            LanguageSwitchComposable(Modifier.width(128.dp))
-
+            LanguageSwitchComposable(
+                Modifier.width(128.dp),
+                component.languageSettings
+            )
         },
         navigationIcon = {
             if (stack.items.size > 1) {

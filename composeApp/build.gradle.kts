@@ -109,6 +109,7 @@ kotlin {
             api(libs.settings)
             implementation(libs.settings.serialization)
             implementation(libs.settings.observable)
+            implementation(libs.settings.coroutines)
 
             implementation(libs.hash.md5)
         }
