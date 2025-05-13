@@ -22,6 +22,7 @@ import uk.kulikov.flippercorp2025.model.DayEvents
 import uk.kulikov.flippercorp2025.model.api.Event
 import uk.kulikov.flippercorp2025.model.api.EventActivity
 import uk.kulikov.flippercorp2025.schedule.ScheduleDecomposeComponentImpl
+import kotlin.math.abs
 
 @Composable
 fun ScheduleMainScreenComposable(
@@ -76,9 +77,9 @@ fun ScheduleMainScreenComposable(
 }
 
 private fun getNearestDay(dates: List<DayEvents>, date: LocalDate): DayEvents {
-    return dates.minByOrNull {
-        it.date.toEpochDays() - date.toEpochDays()
-    } ?: dates.first()
+    return dates.minBy {
+        abs(it.date.toEpochDays() - date.toEpochDays())
+    }
 }
 
 @Preview
